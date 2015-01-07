@@ -16,12 +16,13 @@ java -jar target/dotfile-viewer-0.0.1-SNAPSHOT.jar --dotfiles.folder=<path to th
 The default server port is 8080 but you can alter this with the `--server.port=<your port>` command property.
 
 Open [http://localhost:8080](http://localhost:8080) in the browser: 
+
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.22.47%20PM.png" alt="alt text" width="400">
 
 Use the filter control to filter in only the desired files.
 
 An alternative (responsive) view of the files is available at [http://localhost:8080/responsive.html](http://localhost:8080/responsive.html):
-<img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.23.39%20PM.png" alt="responsive view 1" width="200">
+<img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.23.39%20PM.png" alt="responsive view 1" width="300">
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.24.12%20PM.png" alt="responsive view 2" width="200">
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.24.25%20PM.png" alt="responsive view 3" width="200">
 
