@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- 1. Load platform support before any code that touches the DOM. -->
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!-- 2. Load the component using an HTML Import -->
+    <link rel="import" href="bower_components/viz-js/viz-js.html">
+  </head>
+  <body>
+	<!-- Using Custom Elements -->
+	<textarea id="dot" style="width:600px;height:100px;">digraph G {	start -> a0; start -> b0;	a1 -> b3;	b2 -> a3;	a3 -> a0;	a3 -> end;	b3 -> end;	start [shape=Mdiamond]; 	end [shape=Msquare];}</textarea>
+	<br/>
+	<button onclick="draw()">Draw</button>
+ 	  <viz-js dotcontent="digraph G {	start -> a0; start -> b0;	}"></viz-js>
+	<script>
+	function draw() {
+		document.getElementsByTagName('viz-js')[0].dotcontent = document.getElementById('dot').value;
+	}
+	</script>  </body>
+</html>

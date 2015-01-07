@@ -1,0 +1,24 @@
+digraph G {
+  "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" shape=folder];
+  "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" shape=folder];
+  subgraph "cluster-job1" {
+    label="Crunch Job 1";
+    subgraph "cluster-job1-map" {
+      label = Map; color = blue;
+      "S0@1220191003@1371706360" [label="S0" shape=box];
+      "Aggregate.count@791244061@1371706360" [label="Aggregate.count" shape=box];
+    }
+    subgraph "cluster-job1-reduce" {
+      label = Reduce; color = red;
+      "asText@742565912@1371706360" [label="asText" shape=box];
+      "combine@2005332915@1371706360" [label="combine" shape=box];
+      "GBK@827506119@1371706360" [label="GBK" shape=box];
+    }
+  }
+  "asText@742565912@1371706360" -> "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)";
+  "combine@2005332915@1371706360" -> "asText@742565912@1371706360";
+  "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" -> "S0@1220191003@1371706360";
+  "GBK@827506119@1371706360" -> "combine@2005332915@1371706360";
+  "S0@1220191003@1371706360" -> "Aggregate.count@791244061@1371706360";
+  "Aggregate.count@791244061@1371706360" -> "GBK@827506119@1371706360";
+}

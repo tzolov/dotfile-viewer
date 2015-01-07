@@ -1,0 +1,83 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-button/paper-button.html" >
+
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-collapse/core-collapse.html" >
+<link rel="import" href="../bower_components/core-item/core-item.html" >
+<link rel="import" href="../bower_components/core-icons/social-icons.html" >
+
+<link rel="import" href="../elements/dotfile-diagram.html" >
+
+<polymer-element name="dotfile-list" attributes="hostname nameFilter">
+
+  <template>
+  
+    <style>
+        .item {
+          box-sizing: border-box;
+          border-bottom: 1px solid #ddd;
+          padding: 1px;
+          cursor: default;
+          overflow: hidden;
+          font-size: 12px;
+          width: 100%;
+        }
+        
+        paper-button {
+        	height: 35px;
+        }      
+    </style>
+  
+    <core-ajax
+        id="ajax_fetch_dotfile_list"
+        auto        
+        url="{{hostname}}/dotfile?wildcard={{nameFilter}}"
+        on-core-response="{{ajaxResponse}}"
+        handleAs="json"
+        response="{{resp}}">
+    </core-ajax>
+       
+    <div id="container">
+      <template repeat="{{dotfileName in resp}}">
+         <section >     	   
+         	  <paper-button  class="item" dotId="{{dotfileName|normalize}}"  on-click="{{toggleDotfile}}">
+         	  	<core-icon icon="social:circles-extended" ></core-icon>
+         	  	{{dotfileName}}
+         	  </paper-button>
+         	            
+            <core-collapse id="{{dotfileName|normalize}}"  class="box" style="height: 50px;">
+               <core-item>
+                  <dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfileName}}"></dotfile-diagram>
+               </core-item>
+            </core-collapse>
+         </section>
+      </template>
+    </div>
+  </template>
+  
+  <script>
+	Polymer('dotfile-list', {
+        hostname: "",        
+        
+        nameFilter: "", 
+          
+        ajaxGo: function() {
+			this.$.ajax_fetch_dotfile_list.go();
+        },
+        
+        toggleDotfile: function(event, detail, sender) {
+			var dotfileName = event.target.templateInstance.model.dotfileName;
+			var normalizedDotfileName = '#' + this.normalize(dotfileName);
+			
+			this.$.container.querySelector(normalizedDotfileName).toggle();
+			this.$.container.querySelector(normalizedDotfileName).querySelector("dotfile-diagram").ajaxGo();       
+  		},
+  		
+  		normalize: function(value) {
+			return ("" + value).replace(/\./g,'_').replace(/\s+/g, '_').replace(/\-/g, '_');
+        }		
+  	});
+  </script>
+
+</polymer-element>

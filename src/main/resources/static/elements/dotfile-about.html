@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html" >
+
+<polymer-element name="dotfile-about" attributes="hostname">
+
+<template>
+   <style></style>
+
+   <core-ajax
+   		auto
+        url="{{hostname}}/about"
+        on-core-response="{{ajaxResponse}}"
+        handleAs="json"
+        response="{{resp}}">
+   </core-ajax>
+        
+  <div id="container">  	
+  	<div vertical layout>
+      <div horizontal layout>
+        <div two flex>{{resp.rootFolder}} ({{resp.dotfilesCount}})</div>
+	  </div>
+    </div>
+  </div>
+</template>
+
+<script>
+	Polymer('dotfile-about', {        
+    	hostname: "",
+        ajaxResponse: function(event, response) {}
+	});
+</script>
+
+</polymer-element>

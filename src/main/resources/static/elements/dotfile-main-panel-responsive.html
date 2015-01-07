@@ -1,0 +1,211 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+ <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+ <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-field/core-field.html" >
+<link rel="import" href="../bower_components/core-input/core-input.html" >
+<link rel="import" href="../bower_components/core-icons/notification-icons.html" >
+<link rel="import" href="../bower_components/core-icons/core-icons.html" >
+
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html" >
+<link rel="import" href="../bower_components/core-tooltip/core-tooltip.html" >
+
+<link rel="import" href="../bower_components/core-scaffold/core-scaffold.html" >
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html" >
+<link rel="import" href="../bower_components/core-menu/core-menu.html" >
+
+<link rel="import" href="../bower_components/core-list/core-list.html" >
+
+<link rel="import" href="../elements/dotfile-list.html">
+<link rel="import" href="../elements/dotfile-about.html">
+
+<polymer-element name="dotfile-main-panel-responsive" attributes="hostname dotfileName"> 
+
+  <template>
+  
+    <style>    
+      core-scaffold {
+      	position: absolute;
+      	top: 0;
+      	right: 0;
+      	bottom: 0;
+      	left: 0;
+      }
+      
+      .content {
+      	background-color: #fff;
+      	height: 5000px;
+      	padding: 20px;
+      }
+      
+      /* some default styles for mode="cover" on core-scaffold */
+      core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
+      	left: 120px;
+      }
+      
+      core-scaffold[mode=cover] .content {
+      	margin: 20px 100px 20px 0;
+      }
+      
+      core-field {
+      	background-color: transparent;
+      }
+      
+      input {
+      	background-color: #ffffff;
+      	width: 170px;
+      }
+      
+      paper-icon-button {
+      	background-color: transparent;
+      	color: #1B5E85;
+      }
+      
+      core-tooltip.fancy::shadow .core-tooltip {
+      	opacity: 0;
+      	-webkit-transition: all 300ms cubic-bezier(0, 1.92, .99, 1.07);
+      	transition: all 300ms cubic-bezier(0, 1.92, .99, 1.07);
+      	-webkit-transform: translate3d(0, -10px, 0);
+      	transform: translate3d(0, -10px, 0);
+      }
+      
+      core-tooltip.fancy:hover::shadow .core-tooltip, core-tooltip.fancy:focus::shadow .core-tooltip {
+      	opacity: 1;
+      	-webkit-transform: translate3d(0, 0, 0);
+      	transform: translate3d(0, 0, 0);
+      }
+      
+      .item {
+      	box-sizing: border-box;
+      	border-bottom: 1px solid #ddd;
+      	padding: 4px;
+      	cursor: default;
+      	background-color: white;
+      	overflow: hidden;
+      	font-size: 9px;
+      }
+      
+      .selected {
+      	background: #CFD8DC;
+      }
+      
+      core-tooltip.fancy::shadow .core-tooltip {
+        opacity: 0;
+        -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
+        -webkit-transform: translate3d(0, -10px, 0);
+        transform: translate3d(0, -10px, 0);
+      }
+
+      core-tooltip.fancy:hover::shadow .core-tooltip,
+      core-tooltip.fancy:focus::shadow .core-tooltip {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+      }      
+      
+    </style>
+    
+    <core-ajax 
+      id="ajax_fetch_dotfile_list" 
+      auto 
+      url="{{hostname}}/dotfile2?wildcard={{filenameFilterValue}}"
+      on-core-response="{{ajaxResponse}}"
+      handleAs="json" 
+      response="{{resp}}"> 
+    </core-ajax>
+        
+    <div id="container">  
+    
+      <core-scaffold mode="waterfall-medium-tall"> 
+      
+        <core-header-panel navigation flex>       
+          <core-toolbar id="navheader"> 
+            <core-field id="core_field" theme="core-light-theme" center horizontal layout>
+              <paper-icon-button icon="refresh"></paper-icon-button> 
+              <paper-input-decorator label="with core-input"> 
+                <input is="core-input" id="core_input" value="{{filenameFilterValue}}"></input> 
+              </paper-input-decorator> 
+              <paper-icon-button icon="clear" on-click="{{ filenameFilterValueClear }}"></paper-icon-button>
+            </core-field> 
+          </core-toolbar> 
+      
+          <core-menu>
+            <!-- Solution for: "core-list must either be sized or be inside an overflow:auto div that is sized"  
+              * http://stackoverflow.com/questions/27251551/why-does-core-list-doesnt-set-a-height-within-a-core-header-panel
+              * https://github.com/Polymer/core-list/issues/47#issuecomment-63126241 
+            -->
+            <div fit>
+              <core-list id="list" data="{{resp}}" height="40" style="height:100%;"> 
+                <template>
+                    <div  id="{{model.fileName|normalize}}" 
+                          class="item {{ {selected: selected} | tokenList }}" 
+                          fileName="{{model.fileName}}" 
+                          on-click="{{ dotfileClick }}">
+                         {{model.fileName|shorten}}
+                    </div>
+                </template>
+              </core-list>
+            </div>
+          </core-menu>         
+        </core-header-panel> 
+          
+        <span tool>
+          <div>Apache Crunch Debugger</div>           
+          <dotfile-about hostname="" style="font-size: 9px;"></dotfile-about>
+          <div style="font-size: 11px;">[ {{dotfileName}} ]</div>  
+        </span>
+    
+        <div class="content">
+          <dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfileName}}"></dotfile-diagram>
+        </div>    
+        
+      </core-scaffold>
+      
+    </div>
+  </template>
+  
+  <script>
+  	Polymer('dotfile-main-panel-responsive', {
+
+  		filenameFilterValue : "",
+  		
+  		filenameFilterValueChanged : function(oldValue, newValue) {
+  			this.$.ajax_fetch_dotfile_list.go();
+  		},
+  		
+  		filenameFilterValueClear : function() {
+  			this.filenameFilterValue = "";
+  		},
+  		
+  		normalize : function(value) {
+  			return ("" + value).replace(/\./g,'_').replace(/\s+/g, '_').replace(/\-/g, '_');
+  		},
+  		
+  		shorten : function(value) {
+  			n = ("" + value).indexOf('_', 0);
+  			return ("" + value).substring(n + 1);
+  		},
+  		
+  		dotfileClick : function(event) {
+  			this.dotfileName = event.toElement.getAttribute("filename");			
+  			this.$.container.querySelector("dotfile-diagram").ajaxGo();
+  		},
+        
+  		ajaxResponse: function(event, response) {
+  			this.dotfileName = response.response[0].fileName;
+  			this.$.container.querySelector("dotfile-diagram").ajaxGo();
+   			this.$.list.selectItem(1);
+   			this.$.list.setItemSelected(1, true);
+   			
+   			var id1 = '#' + this.normalize(this.$.list.data[0].fileName);
+   			console.log(id1);
+   			console.log(this.$.list.querySelector(id1));
+   			/* this.$.list.querySelector("#"+this.normalize(this.$.list.data[0].fileName))); */
+   			/* console.log(this.normalize(this.$.list.data[0].fileName)); */
+   			
+ 		}
+  	});
+  </script>
+
+</polymer-element>

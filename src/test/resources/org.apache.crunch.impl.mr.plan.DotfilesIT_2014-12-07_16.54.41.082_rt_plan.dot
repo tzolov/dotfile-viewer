@@ -1,0 +1,54 @@
+digraph G {
+   label="Run Time Plan (DotfilesIT) \n\n"; fontsize=24; labelloc="t"; 
+subgraph "cluster-legend-rtnodes" {
+label="LEGEND" ; fontsize=10; style=filled; color=lightblue;
+"RTNodes"  [label="{{RTNode Name | Output Name } | DoFn | PType | { Input Converter | Output Converter}}"; shape=record;]
+"Inputs"  [label="{InputFormat Name | {Node Index | Path List}}"; shape=record; color = green]
+"Outputs"  [label="{Output Name | OutputFormat Name |{Key Class | Value Class}}"; shape=record; color = magenta]
+"Inputs" -> "RTNodes" [style=invis];
+"RTNodes" -> "Outputs" [style=invis];
+}
+subgraph "cluster-job1" {
+    label="Crunch Job 1" ;
+subgraph "cluster-job1_MAP" {
+ label="MAP"; color=blue; fontsize=14;
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@67455012" [label="{{Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt) | -} | Writables$3 | String | { WritableValueConverter[NullWritable, Text] | - } }" shape=record; color = black;];
+"S0@1992504715" [label="{{S0 | -} | DotfilesIT$1 | String | { - | - } }" shape=record; color = black;];
+"Aggregate.count@166753687" [label="{{Aggregate.count | -} | Aggregate$1 | Pair[String, Long] | { - | - } }" shape=record; color = black;];
+"@163058074" [label="{{ | -} | PairMapFn | Pair[String, Long] | { - | WritablePairConverter[Text, LongWritable] } }" shape=record; color = black;];
+}
+subgraph "cluster-job1_COMBINE" {
+ label="COMBINE"; color=cyan; fontsize=14;
+"GBK@327916146" [label="{{GBK | -} | PGroupedTableType$PairIterableMapFn | Pair[String, Long] | { WritablePairConverter[Text, LongWritable] | - } }" shape=record; color = black;];
+"combine@843627620" [label="{{combine | -} | Aggregators$AggregatorCombineFn | Pair[String, Long] | { - | - } }" shape=record; color = black;];
+"@1162371846" [label="{{ | -} | PairMapFn | Pair[String, Long] | { - | WritablePairConverter[Text, LongWritable] } }" shape=record; color = black;];
+}
+subgraph "cluster-job1_REDUCE" {
+ label="REDUCE"; color=red; fontsize=14;
+"GBK@324878963" [label="{{GBK | -} | PGroupedTableType$PairIterableMapFn | Pair[String, Long] | { WritablePairConverter[Text, LongWritable] | - } }" shape=record; color = black;];
+"combine@1337300467" [label="{{combine | -} | Aggregators$AggregatorCombineFn | Pair[String, Long] | { - | - } }" shape=record; color = black;];
+"asText@445099367" [label="{{asText | -} | DistributedPipeline$StringifyFn | String | { - | - } }" shape=record; color = black;];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)@1099518668" [label="{{Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output) | out0} | Writables$4 | String | { - | WritableValueConverter[NullWritable, Text] } }" shape=record; color = black;];
+}
+subgraph "cluster-inputs_1" {
+ label="INPUTS"; fontsize=14; color= green;
+"TextInputFormat@1" [label="{ TextInputFormat | { -1 | [/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt]}}" shape=record; color = black];
+}
+subgraph "cluster-output_1" {
+ label="OUTPUTS"; fontsize=14; color= magenta;
+"out0@1" [label="{out0 | TextOutputFormat | { NullWritable | Text } }" shape=record; color = black];
+}
+}
+"Aggregate.count@166753687" -> "@163058074" [color="black"];
+"S0@1992504715" -> "Aggregate.count@166753687" [color="black"];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@67455012" -> "S0@1992504715" [color="black"];
+"combine@843627620" -> "@1162371846" [color="black"];
+"GBK@327916146" -> "combine@843627620" [color="black"];
+"asText@445099367" -> "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)@1099518668" [color="black"];
+"combine@1337300467" -> "asText@445099367" [color="black"];
+"GBK@324878963" -> "combine@1337300467" [color="black"];
+"TextInputFormat@1" -> "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@67455012" [color="black"];
+"@163058074" -> "GBK@327916146" [color="black"];
+"@1162371846" -> "GBK@324878963" [color="black"];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)@1099518668" -> "out0@1" [color="black"];
+}

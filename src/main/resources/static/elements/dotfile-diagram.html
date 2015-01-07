@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html" >
+
+<link rel="import" href="../bower_components/viz-js/viz-js.html">
+
+<polymer-element name="dotfile-diagram" attributes="hostname dotfileName">
+
+<template>
+
+   <style></style>
+
+   <core-ajax
+        id="ajax_get_dotfile_content"
+        url="{{hostname}}/dot/{{dotfileName}}"
+        on-core-response="{{ajaxResponse}}"
+        handleAs="text"
+        response="{{resp}}">
+   </core-ajax>
+        
+   <div id="container">
+      <paper-slider id="diagramSize" min="1" max="33" step="2" value="{{diagramSize}}" ></paper-slider>       
+      <viz-js id="vizjs" dotcontent="{{dotfileContent}}"></viz-js> 	
+  </div>    
+</template>
+
+<script>
+    Polymer('dotfile-diagram', {
+        hostname: "",
+        dotfileName: "",
+        dotfileContent: "",
+        diagramSize : 6,
+        created: function() {
+        },
+        ajaxGo: function() {
+           this.$.ajax_get_dotfile_content.go();
+        },        
+        ajaxResponse: function(event, response) {
+           this.dotfileContent = response.response.replace('digraph G {','digraph G { size=' + this.diagramSize + '; ');;
+        },
+        diagramSizeChanged: function(oldSize, newSize) {
+           // Override the size attribute in the dot file        
+           this.$.vizjs.dotcontent = this.dotfileContent.replace('{ size=' + oldSize + '; ','{ size=' + newSize + '; ');
+           //this.$.vizjs.dotcontentChanged();
+        }
+	});
+</script>
+
+</polymer-element>
