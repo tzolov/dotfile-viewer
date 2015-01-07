@@ -16,4 +16,6 @@ java -jar dotfile-viewer-0.0.1-SNAPSHOT.jar --dotfiles.folder=<path to the folde
 
 Open [http://localhost:8080](http://localhost:8080) in the browser: 
 
-![logo](https://dl-web.dropbox.com/get/public/dotviewer/Screen%20Shot%202015-01-07%20at%205.22.47%20PM.png?_subject_uid=79241625&w=AADG7odLRXy6F8BTNVNDkEe7lFRDBvK_t6nk1sK0sXh9UQ)
+<img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.22.47%20PM.png" alt="alt text" width="400">
+
+Use the filter control to filter in only the desired files.
