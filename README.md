@@ -1,5 +1,6 @@
 # dotfile-viewer
-Solution to render Graphviz on the web. Underneet it uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Polymer](https://www.polymer-project.org/).
+Self-contained solution to render Graphviz on the web. A single jar that embeds Tomcat. 
+Internaly the viewer uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Polymer](https://www.polymer-project.org/) and the custom [vis-js](http://tzolov.github.io/viz-js/components/viz-js) polymer-element.
 
 ## Usage
 Build the project: 
