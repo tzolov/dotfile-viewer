@@ -33,22 +33,21 @@
         id="ajax_fetch_dotfile_list"
         auto        
         url="{{hostname}}/dotfile?wildcard={{nameFilter}}"
-        on-core-response="{{ajaxResponse}}"
         handleAs="json"
         response="{{resp}}">
     </core-ajax>
        
     <div id="container">
-      <template repeat="{{dotfileName in resp}}">
+      <template repeat="{{dotfile in resp}}">
          <section >     	   
-         	  <paper-button  class="item" dotId="{{dotfileName|normalize}}"  on-click="{{toggleDotfile}}">
+         	  <paper-button  class="item" dotId="{{dotfile.fileName|normalize}}"  on-click="{{toggleDotfile}}">
          	  	<core-icon icon="social:circles-extended" ></core-icon>
-         	  	{{dotfileName}}
+         	  	{{dotfile.fileName}}
          	  </paper-button>
          	            
-            <core-collapse id="{{dotfileName|normalize}}"  class="box" style="height: 50px;">
+            <core-collapse id="{{dotfile.fileName|normalize}}"  class="box" style="height: 50px;">
                <core-item>
-                  <dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfileName}}"></dotfile-diagram>
+                  <dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfile.fileName}}"></dotfile-diagram>
                </core-item>
             </core-collapse>
          </section>
@@ -67,7 +66,7 @@
         },
         
         toggleDotfile: function(event, detail, sender) {
-			var dotfileName = event.target.templateInstance.model.dotfileName;
+			var dotfileName = event.target.templateInstance.model.dotfile.fileName;			
 			var normalizedDotfileName = '#' + this.normalize(dotfileName);
 			
 			this.$.container.querySelector(normalizedDotfileName).toggle();

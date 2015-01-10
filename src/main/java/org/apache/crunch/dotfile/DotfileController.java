@@ -21,6 +21,38 @@ public class DotfileController {
 	@Value("${dotfiles.folder}")
 	private File dotfilesRootFolder;
 
+	public static class About {
+		
+		private final String rootFolder;
+		private final int dotfilesCount;
+
+		public String getRootFolder() {
+			return rootFolder;
+		}
+
+		public int getDotfilesCount() {
+			return dotfilesCount;
+		}
+
+		public About(String rootFolder, int dotfilesCount) {
+			this.rootFolder = rootFolder;
+			this.dotfilesCount = dotfilesCount;
+		}
+	}
+
+	public static class FileNameClass {
+		private String fileName;
+
+		public FileNameClass(String fileName) {
+			super();
+			this.fileName = fileName;
+		}
+
+		public String getFileName() {
+			return fileName;
+		}
+	}
+	
 	private static final class DotFilenameFilter implements FilenameFilter {
 
 		private final String wildCard;
@@ -44,24 +76,6 @@ public class DotfileController {
 		}
 	}
 
-	public static class About {
-		private final String rootFolder;
-		private final int dotfilesCount;
-
-		public String getRootFolder() {
-			return rootFolder;
-		}
-
-		public int getDotfilesCount() {
-			return dotfilesCount;
-		}
-
-		public About(String rootFolder, int dotfilesCount) {
-			this.rootFolder = rootFolder;
-			this.dotfilesCount = dotfilesCount;
-		}
-	}
-
 	@RequestMapping("/about")
 	public @ResponseBody About about() throws IOException {
 		int size = dotfilesRootFolder.list(new DotFilenameFilter()).length;
@@ -69,26 +83,6 @@ public class DotfileController {
 	}
 
 	@RequestMapping("/dotfile")
-	public @ResponseBody String[] dofileList(
-			@RequestParam(value = "wildcard", required = false) String wildcard)
-			throws IOException {
-		return dotfilesRootFolder.list(new DotFilenameFilter(wildcard));
-	}
-
-	public static class FileNameClass {
-		private String fileName;
-
-		public FileNameClass(String fileName) {
-			super();
-			this.fileName = fileName;
-		}
-
-		public String getFileName() {
-			return fileName;
-		}
-	}
-
-	@RequestMapping("/dotfile2")
 	public @ResponseBody FileNameClass[] dofileList2(
 			@RequestParam(value = "wildcard", required = false) String wildcard)
 			throws IOException {
