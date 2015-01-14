@@ -18,7 +18,7 @@ and run the embedded Tomcat server with the dotfile viewer application:
     java -jar target/dotfile-viewer-0.0.2-SNAPSHOT.jar --dotfiles.pattern=<Ant like path pattern pointing to the dotfiles location>
 ```
 
-*A pre-build jar is available at: [dotfile-viewer-0.0.2.jar](https://www.dropbox.com/s/9clhiihu8bcwxd1/dotfile-viewer-0.0.2.jar)*
+*Prebuild jar is available at: [dotfile-viewer-0.0.2.jar](https://www.dropbox.com/s/e2fj70mhoqbr22h/dotfile-viewer-0.0.2.jar)*                                                             
 
 `--dotfiles.pattern` - ANT-style path to the location containing the dot files. 
 Standardized prefixes are used to indicate the URL type of the source. This includes `file:` for accessing filesystem paths, `http:` for accessing resources via the HTTP protocol, `ftp:` for accessing resources via FTP, et. It also recognizes the special prefix `classpath:` for dotfiles which should be obtained from the classpath.
