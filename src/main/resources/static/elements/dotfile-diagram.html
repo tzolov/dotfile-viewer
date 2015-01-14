@@ -35,12 +35,13 @@
         ajaxGo: function() {
            this.$.ajax_get_dotfile_content.go();
         },        
-        ajaxResponse: function(event, response) {
-           this.dotfileContent = response.response.replace('digraph G {','digraph G { size=' + this.diagramSize + '; ');;
+        ajaxResponse: function(event, response) {        
+        	
+           this.dotfileContent = response.response.replace(/([\w|\W]*digraph\s+[\w\d]+\s*{)([\w|\W]*)/igm, '$1 size="' + this.diagramSize +  '"; $2');           
         },
         diagramSizeChanged: function(oldSize, newSize) {
            // Override the size attribute in the dot file        
-           this.$.vizjs.dotcontent = this.dotfileContent.replace('{ size=' + oldSize + '; ','{ size=' + newSize + '; ');
+           this.$.vizjs.dotcontent = this.dotfileContent.replace(/([\w|\W]*\s+size=\s*\")(\d+[,\d*]*)(\"[\w|\W]*)/igm,'$1' + newSize +  '$3');
            //this.$.vizjs.dotcontentChanged();
         }
 	});

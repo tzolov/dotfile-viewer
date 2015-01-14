@@ -1,0 +1,22 @@
+digraph G {
+   label="Base Graph (DotfilesIT) \n\n"; fontsize=24; labelloc="t"; 
+subgraph "cluster-legend-rtnodes" {
+label="LEGEND" ; fontsize=10; style=filled; color=lightblue;
+   "Folder"  [label="Folder Name", fontsize=10, shape=folder, color=darkGreen]
+   "Vertex1"  [label="{Vertex Name | Vertex PCollection | PType }", fontsize=10, shape=record]
+   subgraph "cluster-component-legend" {
+         label="Component1" fontsize=14 graph[style=dotted] fontcolor=red color=red
+      "Vertex2"  [label="{Vertex Name | Vertex PCollection | PType }", fontsize=10, shape=record]
+   }
+   "Vertex1" -> "Vertex2" [label="Path List", fontsize=10];
+}
+"GBK@827506119" [label="{GBK | PGroupedTableImpl | Pair[String, Long] }", shape=record, color=black];
+"asText@742565912" [label="{asText | DoCollection | String }", shape=record, color=black];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)", shape=folder, color="darkGreen"];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" [label="{Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt) | InputCollection | String }", shape=record, color=black];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)", shape=folder, color="darkGreen"];
+"asText@742565912" -> "ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" [color="darkGreen"];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" -> "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" [color="darkGreen"];
+"GBK@827506119" -> "asText@742565912" [label="GBK,  \lcombine,  \lasText \l", labeljust=r, color="black"];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" -> "GBK@827506119" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt),  \lS0,  \lAggregate.count,  \lGBK \l", labeljust=r, color="black"];
+}

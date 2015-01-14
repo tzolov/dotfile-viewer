@@ -1,0 +1,23 @@
+digraph G {
+   label="PCollection Lineage Plan (DotfilesIT) \n\n"; fontsize=24; labelloc="t"; 
+subgraph "cluster-legend-rtnodes" {
+label="LEGEND" ; fontsize=10; style=filled; color=lightblue;
+"Folder"  [label="Folder Name" fontsize=10 shape=folder color=darkGreen]
+"PCollection"  [label="{PCollection Name | PCollection Class| PType }" fontsize=10 shape=record]
+}
+"asText@742565912" [label="{asText | DoCollection | String }", shape=record, color=black];
+"combine@2005332915" [label="{combine | DoTable | Pair[String, Long] }", shape=record, color=black];
+"GBK@827506119" [label="{GBK | PGroupedTableImpl | Pair[String, Long] }", shape=record, color=black];
+"Aggregate.count@791244061" [label="{Aggregate.count | DoTable | Pair[String, Long] }", shape=record, color=black];
+"S0@1220191003" [label="{S0 | DoCollection | String }", shape=record, color=black];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" [label="{Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt) | InputCollection | String }", shape=record, color=black];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)", shape=folder, color="darkGreen"];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" [label="Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)", shape=folder, color="darkGreen"];
+"combine@2005332915" -> "asText@742565912" [color="blue"];
+"GBK@827506119" -> "combine@2005332915" [color="blue"];
+"Aggregate.count@791244061" -> "GBK@827506119" [color="blue"];
+"S0@1220191003" -> "Aggregate.count@791244061" [color="blue"];
+"Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" -> "S0@1220191003" [color="blue"];
+"ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)" -> "Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/shakes.txt)@546062589" [color="blue"];
+"asText@742565912" -> "ST@Text(/var/folders/fr/zpsl1dyd74zb3wrh7d0wxbxnv3yv6c/T/junit7183753548880330995/output)" [color="blue"];
+}
