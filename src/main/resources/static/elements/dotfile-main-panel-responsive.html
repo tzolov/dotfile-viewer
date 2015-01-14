@@ -1,7 +1,24 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.  
+ -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
- <link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
- <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../bower_components/core-field/core-field.html" >
 <link rel="import" href="../bower_components/core-input/core-input.html" >
 <link rel="import" href="../bower_components/core-icons/notification-icons.html" >
@@ -59,21 +76,7 @@
       paper-icon-button {
       	background-color: transparent;
       	color: #1B5E85;
-      }
-      
-      core-tooltip.fancy::shadow .core-tooltip {
-      	opacity: 0;
-      	-webkit-transition: all 300ms cubic-bezier(0, 1.92, .99, 1.07);
-      	transition: all 300ms cubic-bezier(0, 1.92, .99, 1.07);
-      	-webkit-transform: translate3d(0, -10px, 0);
-      	transform: translate3d(0, -10px, 0);
-      }
-      
-      core-tooltip.fancy:hover::shadow .core-tooltip, core-tooltip.fancy:focus::shadow .core-tooltip {
-      	opacity: 1;
-      	-webkit-transform: translate3d(0, 0, 0);
-      	transform: translate3d(0, 0, 0);
-      }
+      }      
       
       .item {
       	box-sizing: border-box;
@@ -89,21 +92,6 @@
       	background: #CFD8DC;
       }
       
-      core-tooltip.fancy::shadow .core-tooltip {
-        opacity: 0;
-        -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
-        transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
-        -webkit-transform: translate3d(0, -10px, 0);
-        transform: translate3d(0, -10px, 0);
-      }
-
-      core-tooltip.fancy:hover::shadow .core-tooltip,
-      core-tooltip.fancy:focus::shadow .core-tooltip {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-      }      
-      
     </style>
     
     <core-ajax 
@@ -114,54 +102,56 @@
       handleAs="json" 
       response="{{resp}}"> 
     </core-ajax>
-        
-    <div id="container">  
     
-      <core-scaffold mode="waterfall-medium-tall"> 
-      
-        <core-header-panel navigation flex>       
-          <core-toolbar id="navheader"> 
-            <core-field id="core_field" theme="core-light-theme" center horizontal layout>
-              <paper-icon-button icon="refresh"></paper-icon-button> 
-              <paper-input-decorator label="with core-input"> 
-                <input is="core-input" id="core_input" value="{{filenameFilterValue}}"></input> 
-              </paper-input-decorator> 
-              <paper-icon-button icon="clear" on-click="{{ filenameFilterValueClear }}"></paper-icon-button>
-            </core-field> 
-          </core-toolbar> 
-      
-          <core-menu>
-            <!-- Solution for: "core-list must either be sized or be inside an overflow:auto div that is sized"  
-              * http://stackoverflow.com/questions/27251551/why-does-core-list-doesnt-set-a-height-within-a-core-header-panel
-              * https://github.com/Polymer/core-list/issues/47#issuecomment-63126241 
-            -->
-            <div fit>
-              <core-list id="list" data="{{resp}}" height="40" style="height:100%;"> 
-                <template>
-                    <div  id="{{model.fileName|normalize}}" 
-                          class="item {{ {selected: selected} | tokenList }}" 
-                          fileName="{{model.fileName}}" 
-                          on-click="{{ dotfileClick }}">
-                         {{model.fileName|shorten}}
-                    </div>
-                </template>
-              </core-list>
-            </div>
-          </core-menu>         
-        </core-header-panel> 
-          
-        <span tool>
-          <div>Apache Crunch Debugger</div>           
-          <dotfile-about hostname="" style="font-size: 9px;"></dotfile-about>
-          <div style="font-size: 11px;">[ {{dotfileName}} ]</div>  
-        </span>
+    <div id="container">        
+    <core-scaffold>
+  
+    <core-header-panel navigation flex mode="seamed">
     
-        <div class="content">
-          <dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfileName}}"></dotfile-diagram>
-        </div>    
-        
-      </core-scaffold>
+      <core-toolbar style="background-color: #526E9C; color: #fff;">
+        <core-field id="core_field" theme="core-light-theme" center horizontal layout>
+          <paper-icon-button icon="refresh"></paper-icon-button> 
+          <paper-input-decorator label="with core-input"> 
+            <input is="core-input" id="core_input" value="{{filenameFilterValue}}"></input> 
+          </paper-input-decorator>
+          <paper-icon-button icon="clear" on-click="{{ filenameFilterValueClear }}"></paper-icon-button>
+        </core-field>       
+      </core-toolbar>
       
+      <core-menu>
+              
+        <!-- Solution for: "core-list must either be sized or be inside an overflow:auto div that is sized"  
+              http://stackoverflow.com/questions/27251551/why-does-core-list-doesnt-set-a-height-within-a-core-header-panel
+              https://github.com/Polymer/core-list/issues/47#issuecomment-63126241 
+        -->        
+      
+        <div fit>
+          <core-list id="list" data="{{resp}}" height="40" style="height:100%;"> 
+            <template>
+              <div  id="{{model.fileName|normalize}}" 
+                    class="item {{ {selected: selected} | tokenList }}" 
+                    fileName="{{model.fileName}}" 
+                    on-click="{{ dotfileClick }}">
+                    {{model.fileName|shorten}}
+              </div>
+            </template>
+          </core-list>
+        </div>
+      </core-menu>
+    </core-header-panel>
+    
+    <div tool>          
+    	<div>Apache Crunch Debugger</div>           
+        <dotfile-about hostname="" style="font-size: 9px;"></dotfile-about>
+        <div style="font-size: 11px;">[ {{dotfileName}} ]</div>  
+    </div>
+    
+    <div class="content">
+    	<dotfile-diagram hostname="{{hostname}}" dotfileName="{{dotfileName}}"></dotfile-diagram>
+    </div>
+  
+  </core-scaffold>
+    
     </div>
   </template>
   
@@ -199,9 +189,9 @@
    			this.$.list.setItemSelected(1, true);
    			
    			var id1 = '#' + this.normalize(this.$.list.data[0].fileName);
-   			console.log(id1);
+/*    			console.log(id1);
    			console.log(this.$.list.querySelector(id1));
-   			/* this.$.list.querySelector("#"+this.normalize(this.$.list.data[0].fileName))); */
+ */   			/* this.$.list.querySelector("#"+this.normalize(this.$.list.data[0].fileName))); */
    			/* console.log(this.normalize(this.$.list.data[0].fileName)); */
    			
  		}
