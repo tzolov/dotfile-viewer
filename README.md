@@ -29,17 +29,16 @@ For example set a local file folder: `--dotfiles.pattern=file:/<path to the dotf
 
 `--server.port=<your port>` - optional parameter to change the default (8080) Tomcat server port.
 
-Open [http://localhost:8080](http://localhost:8080) in the browser: 
+Open [http://localhost:8080](http://localhost:8080) 
 
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.22.47%20PM.png" alt="basic view" width="300"></img>
 
-Use the filter control to filter in only the desired files.
-
-An alternative (responsive) view of the files is available at [http://localhost:8080/responsive.html](http://localhost:8080/responsive.html):
+or an alternative ([responsive](http://en.wikipedia.org/wiki/Responsive_web_design)) layout: [http://localhost:8080/responsive.html](http://localhost:8080/responsive.html)
 
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.23.39%20PM.png" alt="responsive view 1" width="200"></img>
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.24.25%20PM.png" alt="responsive view 3" width="130"></img>
 
+The filter control allows to filter in only the desired files.
 
 
 
