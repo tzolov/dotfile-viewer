@@ -2,7 +2,7 @@
 Self-contained solution to render Graphviz files on the web. A single jar that embeds Tomcat. 
 Internally the viewer uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Polymer](https://www.polymer-project.org/) and the custom [vis-js](http://tzolov.github.io/viz-js/components/viz-js) polymer-element.
 
-[Live Demo1](http://dotfile-viewer.cfapps.io/), [Live Demo2](http://dotfile-viewer.cfapps.io/responsive.html)
+[Live demo1](http://dotfile-viewer.cfapps.io/), [Live demo2](http://dotfile-viewer.cfapps.io/responsive.html)
 
 ## Usage
 
@@ -15,20 +15,19 @@ Build the project:
 and run the embedded Tomcat server with the dotfile viewer application:
 
 ```
-    java -jar target/dotfile-viewer-0.0.2-SNAPSHOT.jar --dotfiles.pattern=<Ant like path pattern pointing to the dotfiles location>
+    java -jar target/dotfile-viewer-0.0.2-SNAPSHOT.jar --dotfiles.pattern=<Ant-style dotfiles location path pattern>
 ```
 
-*Prebuild jar is available at: [dotfile-viewer-0.0.2.jar](https://www.dropbox.com/s/e2fj70mhoqbr22h/dotfile-viewer-0.0.2.jar)*                                                             
+*Pre-build jar is available at: [dotfile-viewer-0.0.2.jar](https://www.dropbox.com/s/e2fj70mhoqbr22h/dotfile-viewer-0.0.2.jar)*                                                             
 
 `--dotfiles.pattern` - ANT-style path to the location containing the dot files. 
 Standardized prefixes are used to indicate the URL type of the source. This includes `file:` for accessing filesystem paths, `http:` for accessing resources via the HTTP protocol, `ftp:` for accessing resources via FTP, et. It also recognizes the special prefix `classpath:` for dotfiles which should be obtained from the classpath.
 
-For example: `--dotfiles.pattern=file:/<path to the dotfiles folder>/**`. Note that you *must* set the `file:` prefix and the `**` wild-card. Additional examples and [pattern conventions](http://docs.spring.io/spring-framework/docs/2.5.x/api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html).
+For example set a local file folder: `--dotfiles.pattern=file:/<path to the dotfiles folder>/**`. Note the `file:` prefix and the `**` wild-card. Additional [pattern conventions](http://docs.spring.io/spring-framework/docs/2.5.x/api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html).
 
-~~_Deprecated: `--dotfiles.folder` - folder path containing the dot files._~~  
- 
+~~_`--dotfiles.folder` - folder path containing the dot files. (Deprecated)_~~  
 
-Use the optional `--server.port=<your port>` parameter to change the default (8080) Tomcat server port.
+`--server.port=<your port>` - optional parameter to change the default (8080) Tomcat server port.
 
 Open [http://localhost:8080](http://localhost:8080) in the browser: 
 
