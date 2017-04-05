@@ -18,18 +18,21 @@ and run the embedded Tomcat server with the dotfile viewer application:
     java -jar target/dotfile-viewer-0.0.2-SNAPSHOT.jar --dotfiles.pattern=<Ant-style dotfiles location path pattern>
 ```
 
-*Pre-build jar is available at: [dotfile-viewer-0.0.2.jar](https://www.dropbox.com/s/e2fj70mhoqbr22h/dotfile-viewer-0.0.2.jar)*                                                             
+*Pre-build jar is available at: [dotfile-viewer-0.0.3-SNAPSHOT.jar](https://www.dropbox.com/s/isc340bhozb1piu/dotfile-viewer-0.0.3-SNAPSHOT.jar?dl=0)*                                                             
 
 `--dotfiles.pattern` - ANT-style path to the location containing the dot files. 
 Standardized prefixes are used to indicate the URL type of the source. This includes `file:` for accessing filesystem paths, `http:` for accessing resources via the HTTP protocol, `ftp:` for accessing resources via FTP, et. It also recognizes the special prefix `classpath:` for dotfiles which should be obtained from the classpath.
 
-For example set a local file folder: `--dotfiles.pattern=file:/<path to the dotfiles folder>/**`. Note the `file:` prefix and the `**` wild-card. Additional [pattern conventions](http://docs.spring.io/spring-framework/docs/2.5.x/api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html).
-
-~~_`--dotfiles.folder` - folder path containing the dot files. (Deprecated)_~~  
+For example set a local file folder: `--dotfiles.pattern=file:/<path to the dotfiles folder>/**`. Note the `file:` prefix and the `**` wild-card. Additional [pattern conventions](http://docs.spring.io/spring-framework/docs/2.5.x/api/org/springframework/core/io/support/PathMatchingResourcePatternResolver.html).  
 
 `--server.port=<your port>` - optional parameter to change the default (8080) Tomcat server port.
 
-Open [http://localhost:8080](http://localhost:8080) 
+For examples run the viewer to visualize the sample dot files in `src/test/resources`:
+```bash
+java -jar ./target/dotfile-viewer-0.0.3-SNAPSHOT.jar --dotfiles.pattern=file:./src/test/resources/**
+```
+
+Then open [http://localhost:8080](http://localhost:8080) 
 
 <img src="https://raw.githubusercontent.com/tzolov/dotfile-viewer/master/doc/Screen%20Shot%202015-01-07%20at%205.22.47%20PM.png" alt="basic view" width="300"></img>
 
