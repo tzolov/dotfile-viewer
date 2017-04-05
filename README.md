@@ -2,8 +2,6 @@
 Self-contained solution to render Graphviz files on the web. A single jar that embeds Tomcat. 
 Internally the viewer uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Polymer](https://www.polymer-project.org/) and the custom [vis-js](http://tzolov.github.io/viz-js/components/viz-js) polymer-element.
 
-[Live demo1](http://dotfile-viewer.cfapps.io/), [Live demo2](http://dotfile-viewer.cfapps.io/responsive.html)
-
 ## Usage
 
 Build the project: 
